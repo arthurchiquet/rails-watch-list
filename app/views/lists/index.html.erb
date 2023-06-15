@@ -1,0 +1,11 @@
+<div class="container p-2">
+  <h1>My lists</h1>
+  <hr>
+  <% @lists.each do |list| %>
+  <%= link_to list_path(list), class:'text-decoration-none' do %>
+    <div class="card-list mb-3" style="background-image: url(<%=list.background_url%>)">
+      <h1><strong><%=list.name%></strong></h1>
+    </div>
+    <% end %>
+  <% end %>
+</div>

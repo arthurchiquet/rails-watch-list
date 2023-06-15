@@ -1,0 +1,63 @@
+<div class="m-2" style="background-image: url(<%=@list.background_url%>); height: 300px; background-size: cover; background-position: center;">
+</div>
+<div class="container">
+  <h1 class="flex-grow-1"><%= @list.name %></h1>
+  <hr>
+  <p>
+    <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      See reviews
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <ul>
+        <% @list.reviews.each do |review|%>
+        <li>
+          <p><strong> <%= review.rating %> / 10 - </strong><%= review.comment %></p>
+        </li>
+        <% end %>
+      </ul>
+      <hr>
+      <%= simple_form_for [@list, @review] do |f| %>
+      <%= f.input :comment %>
+      <%= f.input :rating %>
+      <%= f.submit class: "btn btn-outline-dark" %>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+  <h2>Movies</h2>
+  <div class="container p-3 border rounded">
+    <h3>Add a movie to <%= @list.name %> list</h3>
+    <hr>
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.association :movie, as: :select %>
+    <%= f.input :comment, placeholder: "Enter a comment about the movie" %>
+    <%= f.submit class: "btn btn-outline-dark" %>
+    <% end %>
+  </div>
+  <hr>
+  <div class="row">
+    <% @list.movies.each do |movie| %>
+    <div class="col-12 col-sm-6 mb-4">
+      <div class="bg-white rounded">
+        <% poster_url = "https://image.tmdb.org/t/p/w500/#{movie.poster_url}" %>
+        <%= image_tag poster_url, alt: movie.title, class: "poster-img" %>
+        <div class="p-3 d-flex flex-column">
+          <h3><%= movie.title %></h3>
+          <p><em><strong><%= movie.rating %></strong> average viewers vote</em></p>
+          <div class="overflow-auto" style="height:100px">
+            <p><%= movie.overview %></p>
+          </div>
+          <hr>
+          <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+          <strong class="mb-1">My comment:</strong>
+          <p><em><%= bookmark.comment %></em></p>
+          <hr>
+          <%= link_to "Delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this film?"}, class: 'btn btn-outline-danger' %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
