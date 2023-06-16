@@ -5,9 +5,9 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.list = @list
     if @review.save
-      redirect_to list_path(@list)
+      redirect_to @list
     else
-      render :new, status: :unprocessable_entity
+      redirect_to @list, status: :unprocessable_entity
     end
   end
 
