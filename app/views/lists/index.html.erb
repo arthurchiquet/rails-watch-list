@@ -2,10 +2,10 @@
   <h1>My lists</h1>
   <hr>
   <% @lists.each do |list| %>
-  <%= link_to list_path(list), class:'text-decoration-none' do %>
-    <div class="card-list mb-3" style="background-image: url('<%= cl_image_path list.photo.key %>'); height: 300px; background-size: cover; background-position: center;">
-      <h1><strong><%=list.name%></strong></h1>
-    </div>
+    <%= link_to list_path(list), class:'text-decoration-none' do %>
+      <div class="card-list mb-3" style="background-image: url('<%= cl_image_path list.photo.key %>'); height: 300px; background-size: cover; background-position: center;">
+        <h1><strong><%=list.name%></strong></h1>
+      </div>
     <% end %>
   <% end %>
 </div>

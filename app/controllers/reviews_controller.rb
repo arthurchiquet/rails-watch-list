@@ -1,13 +1,18 @@
 class ReviewsController < ApplicationController
   before_action :set_list, only: [:new, :create]
 
+
+  def new
+    @review = Review.new
+  end
+
   def create
     @review = Review.new(review_params)
     @review.list = @list
     if @review.save
-      redirect_to @list
+      redirect_to list_path(@list)
     else
-      redirect_to @list, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 

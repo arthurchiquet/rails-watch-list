@@ -18,11 +18,7 @@
         <% end %>
       </ul>
       <hr>
-      <%= simple_form_for [@list, @review] do |f| %>
-      <%= f.input :comment %>
-      <%= f.input :rating %>
-      <%= f.submit class: "btn btn-outline-dark" %>
-      <% end %>
+      <%= link_to "Write a review", new_list_review_path(@list), class: "btn btn-outline-dark" %>
     </div>
   </div>
   <hr>

@@ -3,6 +3,7 @@ class ListsController < ApplicationController
 
   def index
     @lists = List.all
+    @review = Review.new
   end
 
   def new
@@ -11,7 +12,6 @@ class ListsController < ApplicationController
 
   def show
     @bookmark = Bookmark.new
-    @review = Review.new
   end
 
    def create
